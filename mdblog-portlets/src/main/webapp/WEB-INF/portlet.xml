@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	JBoss, Home of Professional Open Source
+	Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+	contributors by the @authors tag. See the copyright.txt in the
+	distribution for a full listing of individual contributors.
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	http://www.apache.org/licenses/LICENSE-2.0
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
+<portlet-app
+	xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd
+   http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+   
+   <portlet>
+		<description>Markdown Blog Portlet</description>
+		<portlet-name>MDBlogPortlet</portlet-name>
+		<display-name>Markdown Blog Portlet</display-name>
+		<portlet-class>com.redhat.jpp.mdblog.MDBlogPortlet</portlet-class>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>VIEW</portlet-mode>
+			<portlet-mode>EDIT</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>Markdown Blog Portlet</title>
+			<keywords>Markdown Blog</keywords>
+		</portlet-info>
+		
+		<supported-public-render-parameter>navigation_uri</supported-public-render-parameter>
+    <supported-public-render-parameter>page_name</supported-public-render-parameter>
+    <supported-public-render-parameter>site_type</supported-public-render-parameter>
+    <supported-public-render-parameter>site_name</supported-public-render-parameter>
+    <supported-public-render-parameter>window_width</supported-public-render-parameter>
+    <supported-public-render-parameter>window_height</supported-public-render-parameter>
+    <supported-public-render-parameter>window_show_info_bar</supported-public-render-parameter>
+		
+	</portlet>
+	
+	<filter>
+		<filter-name>FacebookFilter</filter-name>
+		<filter-class>
+			org.gatein.security.oauth.portlet.OAuthPortletFilter
+		</filter-class>
+		<lifecycle>ACTION_PHASE</lifecycle>
+		<lifecycle>RENDER_PHASE</lifecycle>
+		<init-param>
+			<name>accessTokenValidation</name>
+			<value>SKIP</value>
+		</init-param>
+		<init-param>
+			<name>oauthProviderKey</name>
+			<value>FACEBOOK</value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>GoogleFilter</filter-name>
+		<filter-class>
+			org.gatein.security.oauth.portlet.OAuthPortletFilter
+		</filter-class>
+		<lifecycle>ACTION_PHASE</lifecycle>
+		<lifecycle>RENDER_PHASE</lifecycle>
+		<!-- Validation are useful for Google due to refreshing access token -->
+		<init-param>
+			<name>accessTokenValidation</name>
+			<value>SESSION</value>
+		</init-param>
+		<init-param>
+			<name>oauthProviderKey</name>
+			<value>GOOGLE</value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>TwitterFilter</filter-name>
+		<filter-class>
+			org.gatein.security.oauth.portlet.OAuthPortletFilter
+		</filter-class>
+		<lifecycle>ACTION_PHASE</lifecycle>
+		<lifecycle>RENDER_PHASE</lifecycle>
+		<init-param>
+			<name>accessTokenValidation</name>
+			<value>SKIP</value>
+		</init-param>
+		<init-param>
+			<name>oauthProviderKey</name>
+			<value>TWITTER</value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>FacebookFilter</filter-name>
+		<portlet-name>MD*</portlet-name>
+	</filter-mapping>
+	
+	<public-render-parameter>
+    <identifier>navigation_uri</identifier>
+    <qname xmlns:prp='http://www.gatein.org/xml/ns/prp_1_0'>prp:navigation_uri</qname>
+  </public-render-parameter>
+  <public-render-parameter>
+    <identifier>page_name</identifier>
+    <qname xmlns:prp='http://www.gatein.org/xml/ns/prp_1_0'>prp:page_name</qname>
+  </public-render-parameter>
+  <public-render-parameter>
+    <identifier>site_type</identifier>
+    <qname xmlns:prp='http://www.gatein.org/xml/ns/prp_1_0'>prp:site_type</qname>
+  </public-render-parameter>
+  <public-render-parameter>
+    <identifier>site_name</identifier>
+    <qname xmlns:prp='http://www.gatein.org/xml/ns/prp_1_0'>prp:site_name</qname>
+  </public-render-parameter>
+  <public-render-parameter>
+    <identifier>window_width</identifier>
+    <qname xmlns:prp='http://www.gatein.org/xml/ns/prp_1_0'>prp:window_width</qname>
+  </public-render-parameter>
+  <public-render-parameter>
+    <identifier>window_height</identifier>
+    <qname xmlns:prp='http://www.gatein.org/xml/ns/prp_1_0'>prp:window_height</qname>
+  </public-render-parameter>
+  <public-render-parameter>
+    <identifier>window_show_info_bar</identifier>
+    <qname xmlns:prp='http://www.gatein.org/xml/ns/prp_1_0'>prp:window_show_info_bar</qname>
+  </public-render-parameter>
+</portlet-app>
